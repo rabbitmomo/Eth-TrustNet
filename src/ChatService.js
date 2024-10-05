@@ -171,6 +171,46 @@ const getSmallestTransactions = async (client, address) => {
   }));
 };
 
+// Function to check and correct typos in the user's message
+const correctTypos = async (text) => {
+  const correctionAPIUrl = "https://api.openai.com/v1/completions";
+  const typoCheckPayload = {
+    model: "text-davinci-003",  // You can use GPT-3.5 turbo if needed
+    prompt: `Correct any typos in this sentence: "${text}". If there are no typos, return the original sentence.`,
+    max_tokens: 60,
+    temperature: 0.2,
+  };
+
+  const headers = {
+    Authorization: `Bearer ${API_KEY}`,
+    "Content-Type": "application/json",
+  };
+
+  try {
+    const response = await axios.post(correctionAPIUrl, typoCheckPayload, { headers });
+    const correctedText = response.data.choices[0].text.trim();
+    
+    // Return either corrected sentence or original sentence
+    return correctedText;
+  } catch (error) {
+    console.error("Error correcting typos:", error);
+    return text; // Fallback to original text if typo correction fails
+  }
+};
+
+// Main function to output the corrected or original sentence
+export const processUserMessage = async (message) => {
+  // Call the typo correction function
+  const correctedMessage = await correctTypos(message);
+
+  // Return the corrected message if different from the original, otherwise return the original
+  if (correctedMessage !== message) {
+    return correctedMessage;  // Return corrected sentence
+  } else {
+    return message;  // Return original sentence if no correction is needed
+  }
+};
+
 // Main function to process user messages and return the correct response
 export const sendMessageToGPT = async (message, client) => {
   // Get the user's Ethereum address from the URL
@@ -180,75 +220,26 @@ export const sendMessageToGPT = async (message, client) => {
     return "The Ethereum address provided in the URL is invalid.";
   }
 
-  // Function to format transactions using HTML unordered lists
-  const formatTransactions = (transactions, title) => {
-    let formattedOutput = `<h4 style="text-decoration: underline;"><strong>${title}</strong><h4><br/><ul>`;
+  // Call the typo correction function
+  const correctedMessage = await correctTypos(message);
 
-    transactions.forEach((tx, index) => {
-      formattedOutput += `
-        <li>
-<div style="display: flex; align-items: start; flex-direction: column;">
-  <h5 style="margin: 0; padding-right: 8px;">Transaction Hash:</h5>
- <div style="word-break: break-all;">
-  <a href="https://etherscan.io/tx/${tx.transactionHash}" 
-     style="text-decoration: underline; cursor: pointer;" 
-     target="_blank" rel="noopener noreferrer">
-    <h5 style="margin: 0; color: skyblue;"><strong>${tx.transactionHash}</strong></h5>
-  </a>
-</div>
-
-</div>
-
-<div style="display: flex; align-items: start; flex-direction: column;">
- <h5 style="margin: 0;">From:</h5>
-  <h5 style="margin: 0;word-break: break-all;"><strong>${tx.from}</strong></h5>
-  
-     </div>
-     <div style="display: flex; align-items: start; flex-direction: column;">
- <h5 style="margin: 0;">To: </h5>
-  <h5 style="margin: 0;word-break: break-all;"><strong>${tx.to}</strong></h5>
-  
-     </div>
- 
-               
-          <div style="display: flex; align-items: start; flex-direction: row;">
- <h5 style="margin: 0;"><strong>Value: ${tx.value}</strong></h5>
-  
-     </div>
-
-          <div style="display: flex; align-items: start; flex-direction: row;">
- <h5 style="margin: 0;"><strong>Timestamp: ${tx.blockTimestamp}</strong></h5>
-  
-     </div>
-            ${index === transactions.length - 1 ? "<br/>" : "<br/><br/>"}
-
-        </li>`;
-    });
-
-    formattedOutput += "</ul>";
-    return formattedOutput;
-  };
-
-  // Check if the user is asking for their latest transactions
-  if (message.toLowerCase().includes("latest transaction")) {
+  // Check if the corrected message is requesting transaction data
+  if (correctedMessage.toLowerCase().includes("latest transaction")) {
     const transactions = await getLatestTransactions(client, userAddress);
     return formatTransactions(transactions, "Latest Transactions");
   }
 
-  // Check if the user is asking for their biggest transactions
-  if (message.toLowerCase().includes("biggest transaction")) {
+  if (correctedMessage.toLowerCase().includes("biggest transaction")) {
     const transactions = await getBiggestTransactions(client, userAddress);
     return formatTransactions(transactions, "Biggest Transactions");
   }
 
-  // Check if the user is asking for their smallest transactions
-  if (message.toLowerCase().includes("smallest transaction")) {
+  if (correctedMessage.toLowerCase().includes("smallest transaction")) {
     const transactions = await getSmallestTransactions(client, userAddress);
     return formatTransactions(transactions, "Smallest Transactions");
   }
 
-  // Check if the user is asking for their oldest transactions
-  if (message.toLowerCase().includes("oldest transaction")) {
+  if (correctedMessage.toLowerCase().includes("oldest transaction")) {
     const transactions = await getOldestTransactions(client, userAddress);
     return formatTransactions(transactions, "Oldest Transactions");
   }
@@ -271,18 +262,67 @@ export const sendMessageToGPT = async (message, client) => {
       },
       {
         role: "user",
-        content: message,
+        content: correctedMessage, // Send the corrected message to GPT
       },
     ],
-    max_tokens: 150,
+    max_tokens: 100, // Adjust token limit as necessary
     temperature: 0.7,
   };
 
   try {
     const response = await axios.post(url, data, { headers });
-    return response.data.choices[0].message.content;
+    const gptResponse = response.data.choices[0].message.content.trim();
+    return gptResponse; // Return GPT response
   } catch (error) {
-    console.error("Error communicating with GPT API:", error);
-    return "Sorry, something went wrong. Please try again.";
+    console.error("Error sending message to GPT:", error);
+    return "Error processing your request. Please try again.";
   }
+};
+
+const formatTransactions = (transactions, title) => {
+  let formattedOutput = `<h4 style="text-decoration: underline;"><strong>${title}</strong><h4><br/><ul>`;
+
+  transactions.forEach((tx, index) => {
+    formattedOutput += `
+      <li>
+<div style="display: flex; align-items: start; flex-direction: column;">
+<h5 style="margin: 0; padding-right: 8px;">Transaction Hash:</h5>
+<div style="word-break: break-all;">
+<a href="https://etherscan.io/tx/${tx.transactionHash}" 
+   style="text-decoration: underline; cursor: pointer;" 
+   target="_blank" rel="noopener noreferrer">
+  <h5 style="margin: 0; color: skyblue;"><strong>${tx.transactionHash}</strong></h5>
+</a>
+</div>
+
+</div>
+
+<div style="display: flex; align-items: start; flex-direction: column;">
+<h5 style="margin: 0;">From:</h5>
+<h5 style="margin: 0;word-break: break-all;"><strong>${tx.from}</strong></h5>
+
+   </div>
+   <div style="display: flex; align-items: start; flex-direction: column;">
+<h5 style="margin: 0;">To: </h5>
+<h5 style="margin: 0;word-break: break-all;"><strong>${tx.to}</strong></h5>
+
+   </div>
+
+             
+        <div style="display: flex; align-items: start; flex-direction: row;">
+<h5 style="margin: 0;"><strong>Value: ${tx.value}</strong></h5>
+
+   </div>
+
+        <div style="display: flex; align-items: start; flex-direction: row;">
+<h5 style="margin: 0;"><strong>Timestamp: ${tx.blockTimestamp}</strong></h5>
+
+   </div>
+          ${index === transactions.length - 1 ? "<br/>" : "<br/><br/>"}
+
+      </li>`;
+  });
+
+  formattedOutput += "</ul>";
+  return formattedOutput;
 };
