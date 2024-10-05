@@ -175,7 +175,7 @@ const getSmallestTransactions = async (client, address) => {
 const correctTypos = async (text) => {
   const correctionAPIUrl = "https://api.openai.com/v1/completions";
   const typoCheckPayload = {
-    model: "text-davinci-003",  // You can use GPT-3.5 turbo if needed
+    model: "gpt-3.5-turbo",  
     prompt: `Correct any typos in this sentence: "${text}". If there are no typos, return the original sentence.`,
     max_tokens: 60,
     temperature: 0.2,
@@ -248,7 +248,7 @@ export const sendMessageToGPT = async (message, client) => {
   const url = "https://api.openai.com/v1/chat/completions";
 
   const headers = {
-    Authorization: `Bearer ${API_KEY}`,
+    Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
     "Content-Type": "application/json",
   };
 
