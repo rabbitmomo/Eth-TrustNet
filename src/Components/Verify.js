@@ -67,8 +67,7 @@ const Verify = () => {
             pr: { xs: 2, md: 12 },
           }}
         >
-          text desc text desctext desctext d99xwsctext desctext xt desctext
-          desctext desctext desc
+          The AI powered portfolio tracker designed to provide real-time and personalized insights that are simply accessible all Cryptocurrency users.
         </Typography>
 
         <Box
