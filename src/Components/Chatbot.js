@@ -43,13 +43,27 @@ const Chatbot = () => {
 
   const messagesEndRef = useRef(null);
 
+  // Scroll to the bottom of the messages list
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Handle sending messages
+  const onSendMessage = () => {
+    const newMessage = input;
+    if (newMessage) {
+      setMessages((prevMessages) => [...prevMessages, newMessage]); // Update messages state
+      setInput(""); // Clear input field
+      handleSendMessage(newMessage); // Assume this prop function handles sending message to the server
+    }
+  };
+
+  // Scroll to bottom every time messages update
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    if (messages.length > 0) {
+      scrollToBottom();
+    }
+  }, [messages]); // Depend on messages to control scrolling
 
   return (
     <Paper
@@ -60,13 +74,8 @@ const Chatbot = () => {
         bgcolor: "dark.main",
         p: 4,
         boxShadow: 2,
-        // minHeight: "400px",
         height: "500px",
         flexGrow: 1,
-
-        // boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 40px 4px",
-        // width: "100%",
-        // maxWidth:"350px"
       }}
       id="messages-container"
     >
@@ -139,17 +148,6 @@ const Chatbot = () => {
                       <Box
                         dangerouslySetInnerHTML={{ __html: message.text }}
                         sx={{
-                          // whiteSpace: "pre-line",
-                          // // float: "left",
-                          // "& img": {
-                          //   width: "100%",
-                          //   height: "auto",
-                          //   display: "block",
-                          //   maxWidth: "100%",
-                          //   borderRadius: "8px",
-                          //   mx: "auto",
-                          //   float: "right",
-                          // },
                           "& ul": {
                             padding: "0",
                           },
@@ -257,7 +255,7 @@ const Chatbot = () => {
         />
 
         <Button
-          onClick={handleSendMessage}
+          onClick={onSendMessage}
           disabled={isLoading}
           sx={{
             borderRadius: "0 12px 12px 0",
