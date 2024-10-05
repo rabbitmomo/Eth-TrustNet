@@ -30,37 +30,65 @@ const Verify = () => {
 
   const onSuccess = () => {
     console.log("Verification successful, redirecting...");
-    window.location.href = "/success"; 
+    window.location.href = "/success";
   };
 
   return (
     <Box>
       <Stack spacing={4}>
-      <Box sx={{gap:1,display:"flex",flexWrap:"wrap",justifyContent:{xs:"center",md:"start"} }}> 
+        <Box>
+          <Box
+            sx={{
+              gap: 1,
+              display: "flex",
+              flexWrap: "wrap",
 
-      
-      <Typography variant="h3" fontWeight="bold">
+              justifyContent: { xs: "center", md: "start" },
+            }}
+          >
+            <Typography variant="h3" fontWeight="bold">
+              Welcome to
+            </Typography>
+            <Typography
+              color="primary.contrastText"
+              variant="h3"
+              fontWeight="bold"
+            >
+              Eth TrustNet
+            </Typography>
+          </Box>{" "}
+        </Box>
+        <Typography
+          variant="h6"
+          px={2}
+          sx={{
+            textAlign: { xs: "center", md: "start" },
+            pl: { xs: 2, md: 0 },
+            pr: { xs: 2, md: 12 },
+          }}
+        >
+          text desc text desctext desctext d99xwsctext desctext xt desctext
+          desctext desctext desc
+        </Typography>
 
-        Welcome to
-      </Typography>
-      <Typography color="primary.contrastText" variant="h3" fontWeight="bold">
-
-Eth TrustNet
-</Typography>
-</Box>
-<Box sx={{display:"flex", justifyContent:{xs:"center",md:"start"}}}>
-
-
-      <IDKitWidget
-        app_id="app_staging_76ca67c719dfdb2d97f4ad4e65ec0561" // Your App ID
-        action="verification" // Your Action ID
-        onSuccess={onSuccess}
-        handleVerify={handleVerify}
-        verification_level={VerificationLevel.Stage}
-        enable_mock_mode={true} // Enable mock mode for development
-      >
-        {({ open }) => <Button onClick={open}>Verify with World ID</Button>}
-      </IDKitWidget></Box></Stack>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: { xs: "center", md: "start" },
+          }}
+        >
+          <IDKitWidget
+            app_id="app_staging_76ca67c719dfdb2d97f4ad4e65ec0561" // Your App ID
+            action="verification" // Your Action ID
+            onSuccess={onSuccess}
+            handleVerify={handleVerify}
+            verification_level={VerificationLevel.Stage}
+            enable_mock_mode={true} // Enable mock mode for development
+          >
+            {({ open }) => <Button onClick={open}>Verify with World ID</Button>}
+          </IDKitWidget>
+        </Box>
+      </Stack>
     </Box>
   );
 };
