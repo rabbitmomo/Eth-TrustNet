@@ -182,7 +182,7 @@ const correctTypos = async (text) => {
   };
 
   const headers = {
-    Authorization: `Bearer ${API_KEY}`,
+    Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
     "Content-Type": "application/json",
   };
 
