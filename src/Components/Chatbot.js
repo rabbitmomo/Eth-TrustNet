@@ -270,7 +270,7 @@ const Chatbot = () => {
       </Box>
       {messages.length !== 0 && (
         <Typography fontSize={10} textAlign="start" pl={2} mt={1}>
-          💡 biggest transaction / smallest transaction / Oldest Transactions
+          💡 Get biggest transaction / Get smallest transaction / Get oldest Transactions / What is Worldcoin
         </Typography>
       )}
     </Paper>
