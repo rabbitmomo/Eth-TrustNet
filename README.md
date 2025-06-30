@@ -15,9 +15,8 @@ An AI-powered portfolio tracker designed to provide real-time and personalized i
 
 ## Tech Stack
 
-- **React**: Frontend framework for building interactive UI.
+- **React**: Frontend framework for building interactive UI and handling client-side routing.
 - **Apollo Client**: For managing GraphQL queries and state.
 - **The Graph**: A decentralized protocol for querying blockchain data.
 - **WorldCoin**: For cryptocurrency data integration.
 - **Material-UI (MUI)**: For UI components and theming.
-- **React Router**: For handling client-side routing.
