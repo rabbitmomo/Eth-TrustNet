@@ -77,12 +77,12 @@ const Verify = () => {
           }}
         >
           <IDKitWidget
-            app_id="app_staging_76ca67c719dfdb2d97f4ad4e65ec0561" // Your App ID
-            action="verification" // Your Action ID
+            app_id="app_staging_76ca67c719dfdb2d97f4ad4e65ec0561" 
+            action="verification" 
             onSuccess={onSuccess}
             handleVerify={handleVerify}
             verification_level={VerificationLevel.Stage}
-            enable_mock_mode={true} // Enable mock mode for development
+            enable_mock_mode={true} 
           >
             {({ open }) => <Button onClick={open}>Verify with World ID</Button>}
           </IDKitWidget>

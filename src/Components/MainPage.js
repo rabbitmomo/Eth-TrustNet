@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Verify from "./Verify"; // Import the Verify component
+import Verify from "./Verify"; 
 import { Box, Button, Grid, Stack } from "@mui/material";
 import Logo from "../assets/logo-icon.png";
 import bg from "../assets/bg-star.gif";
@@ -21,9 +21,9 @@ const MainPage = () => {
         // bgcolor: "dark.light",
 
         backgroundImage: `url(${bg})`,
-        backgroundSize: "cover", // Ensures the image covers the entire box
-        backgroundRepeat: "no-repeat", // Prevents the image from repeating
-        backgroundPosition: "center", // Centers the image in the box
+        backgroundSize: "cover", 
+        backgroundRepeat: "no-repeat", 
+        backgroundPosition: "center", 
       }}
     >
       <Grid container>
@@ -42,7 +42,7 @@ const MainPage = () => {
           }}
         >
           <Stack spacing={2}>
-            <Verify /> {/* Include the Verify component */}
+            <Verify /> 
             <Box
               sx={{
                 display: "flex",

@@ -26,27 +26,16 @@ const SendTransaction = () => {
 
       // Check wallet balance using the provider
       const balance = await provider.getBalance(await signer.getAddress()); 
-      const ethBalance = ethers.formatEther(balance); // Use ethers.formatEther to format balance
+      const ethBalance = ethers.formatEther(balance); 
       console.log(`Your balance: ${ethBalance} ETH`);
 
-      // Simulate a successful transaction instead of executing one
+      // Simulate a successful transaction 
       const fakeTxHash = "0x062f76d9483a47ac214a2a381697b653510601c1606c64b42f0c6fcdfa1ccab5"; // Example transaction hash
 
-      // Set the transaction hash to the state
       setTxHash(fakeTxHash);
-      setError(''); // Clear any previous errors
+      setError(''); 
 
-      // OPTIONAL: If you were to actually send the transaction on Scroll,
-      // you would use the scroll RPC endpoint as follows:
-      // const scrollProvider = new ethers.JsonRpcProvider(scrollRpcUrl);
-      // const scrollSigner = scrollProvider.getSigner();
-      // const tx = await scrollSigner.sendTransaction({
-      //   to: address,
-      //   value: ethers.parseEther(value),
-      // });
 
-      // Note: The above code is commented out because we are simulating a transaction.
-      
     } catch (err) {
       console.error(err);
       setError('Transaction failed. Check the console for more details.');

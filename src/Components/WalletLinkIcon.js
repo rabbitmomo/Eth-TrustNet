@@ -9,20 +9,20 @@ const WalletLinkIcon = () => {
   return (
     <Box sx={{
         display: 'flex',
-        alignItems: 'center', // Ensures icons are aligned in the middle vertically
-        position: 'relative'  // Necessary for absolute positioning of the second icon
+        alignItems: 'center', 
+        position: 'relative'  
       }}>
         <AccountBalanceWalletRoundedIcon sx={{ 
-          width: 20, // Sets width of the first icon
-          height: 'auto', // Maintains aspect ratio
+          width: 20, 
+          height: 'auto', 
           color:"primary.main",  position: 'relative' ,  zIndex:1000,
         }}>
 
 <LinkRoundedIcon sx={{
-          width: 140, // Sets the desired width for the link icon
-          height: 'auto', // Maintains aspect ratio
-          position: 'absolute', // Position relative to nearest positioned ancestor (Box)
-          right: 0, // Places the icon at the right edge of the Box
+          width: 140, 
+          height: 'auto', 
+          position: 'absolute', 
+          right: 0, 
           color:"primary.main",
           zIndex:1001,
 

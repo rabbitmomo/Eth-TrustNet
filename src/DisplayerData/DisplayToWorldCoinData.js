@@ -16,9 +16,9 @@ import {
 import SkipNextRoundedIcon from "@mui/icons-material/SkipNextRounded";
 import SkipPreviousRoundedIcon from "@mui/icons-material/SkipPreviousRounded";
 import FileDownloadRoundedIcon from "@mui/icons-material/FileDownloadRounded";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy"; // Import copy icon if needed
+import ContentCopyIcon from "@mui/icons-material/ContentCopy"; 
 
-// Define your GraphQL query
+// Define GraphQL query
 const GET_TRANSFERS = gql`
   query GetTransfers($address: String) {
     transfers(
@@ -36,7 +36,7 @@ const GET_TRANSFERS = gql`
 `;
 
 const formatTimestamp = (timestamp) => {
-  const date = new Date(timestamp * 1000); // Assuming the timestamp is in seconds
+  const date = new Date(timestamp * 1000); 
   const timeOptions = { hour: "numeric", minute: "numeric", hour12: true };
   const dateOptions = { month: "numeric", day: "numeric", year: "numeric" };
   const timeString = date.toLocaleString("en-US", timeOptions);
@@ -56,8 +56,8 @@ const formatText = (text) => {
 const formatValue = (value) => {
   const etherValue = Number(value) / 1e18; // Convert Wei to Ether
   return etherValue > 0
-    ? etherValue.toFixed(2) // Format to 2 decimal places
-    : value.toFixed(2); // Return the original value formatted
+    ? etherValue.toFixed(2) 
+    : Number(value).toFixed(2);
 };
 
 const copyToClipboard = (text) => {
@@ -66,7 +66,7 @@ const copyToClipboard = (text) => {
 
 // Function to download JSON data
 const downloadJSON = (transfers) => {
-  const dataStr = JSON.stringify(transfers, null, 2); // Format with 2 spaces for readability
+  const dataStr = JSON.stringify(transfers, null, 2); 
   const blob = new Blob([dataStr], { type: "application/json" });
   const url = URL.createObjectURL(blob);
 
@@ -76,7 +76,7 @@ const downloadJSON = (transfers) => {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-  URL.revokeObjectURL(url); // Clean up
+  URL.revokeObjectURL(url); 
 };
 
 const DisplayTransferData = ({
@@ -89,13 +89,6 @@ const DisplayTransferData = ({
 }) => {
   const transfersPerPage = 5;
   const totalPages = Math.ceil(transfers.length / transfersPerPage);
-
-  // const getCurrentTransfers = (page) => {
-  //   const startIndex = (page - 1) * transfersPerPage;
-  //   const endIndex = startIndex + transfersPerPage;
-  //   return transfers.slice(startIndex, endIndex);
-  // };
-
 
   const getCurrentTransfers = (page) => {
     const uniqueHashes = new Set();
@@ -111,10 +104,6 @@ const DisplayTransferData = ({
   };
 
   const currentTransfers = getCurrentTransfers(currentPage);
-
-  // Debugging information
-  console.log("Current Page:", currentPage);
-  console.log("Current Transfers:", currentTransfers);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);

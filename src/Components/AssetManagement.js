@@ -15,8 +15,7 @@ const AssetManagementButtons = () => {
   const [error, setError] = useState('');
   const [txHash, setTxHash] = useState('');
 
-  // Define the Scroll RPC endpoint
-  const scrollRpcUrl = "https://rpc.scroll.io"; // Example Scroll RPC endpoint
+  const scrollRpcUrl = "https://rpc.scroll.io"; 
 
   const sendTransaction = async () => {
     if (!window.ethereum) {
@@ -37,12 +36,11 @@ const AssetManagementButtons = () => {
       const ethBalance = ethers.formatEther(balance); // Use ethers.formatEther to format balance
       console.log(`Your balance: ${ethBalance} ETH`);
 
-      // Simulate a successful transaction instead of executing one
-      const example = "0x062f76d9483a47ac214a2a381697b653510601c1606c64b42f0c6fcdfa1ccab5"; // Example transaction hash
+      // Simulate a successful transaction
+      const example = "0x062f76d9483a47ac214a2a381697b653510601c1606c64b42f0c6fcdfa1ccab5"; 
 
-      // Set the transaction hash to the state
       setTxHash(example);
-      setError(''); // Clear any previous errors
+      setError(''); 
 
     } catch (err) {
       console.error(err);
@@ -50,7 +48,6 @@ const AssetManagementButtons = () => {
     }
   };
 
-  // Button click handlers
   const handleStake = () => {
     alert("Staking functionality is not implemented yet.");
   };
@@ -195,8 +192,8 @@ const AssetManagementButtons = () => {
                 border: '1px solid #ccc', 
                 borderRadius: 1, 
                 color: 'black', 
-                fontSize: '0.75rem',  // Make the font size smaller
-                lineHeight: '1.2', // Adjust line height for better spacing
+                fontSize: '0.75rem',  
+                lineHeight: '1.2', 
               }}
             >
               <span style={{ color: 'black' }}>Transaction sent! Hash:</span>
@@ -208,7 +205,7 @@ const AssetManagementButtons = () => {
                   marginLeft: '4px', 
                   color: '#3f51b5', 
                   textDecoration: 'underline', 
-                  wordBreak: 'break-all' // Allows long links to wrap
+                  wordBreak: 'break-all' 
                 }}
               >
                 {txHash}
@@ -222,7 +219,7 @@ const AssetManagementButtons = () => {
                   marginLeft: '4px', 
                   color: '#3f51b5', 
                   textDecoration: 'underline', 
-                  wordBreak: 'break-all' // Allows long links to wrap
+                  wordBreak: 'break-all' 
                 }}
               >
                 Manta Explorer

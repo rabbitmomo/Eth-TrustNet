@@ -1,17 +1,15 @@
 // src/UserDetails.js
 
 import React from "react";
-import TotalValueWithProvider from "../DisplayerData/totalValueWithProvider"; // Import TotalValueWithProvider
+import TotalValueWithProvider from "../DisplayerData/totalValueWithProvider"; 
 import { Box, Typography, Paper, Stack } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import IconButton from "@mui/material/IconButton";
 
 const formatText = (text) => {
-  // Check if text is a string and not empty
   if (typeof text === "string" && text.length > 10) {
     return `${text.slice(0, 12)}...${text.slice(-16)}`;
   }
-  // Return the original text or a fallback message if it's undefined or too short
   return text || "Every User";
 };
 

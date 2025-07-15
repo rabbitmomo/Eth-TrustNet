@@ -1,12 +1,12 @@
 // src/App.js
 
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Removed Link import
-import { worldCoinClient } from "./client"; // Import the clients
-import Header from "./Components/Header"; // Import the new Header component
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; 
+import { worldCoinClient } from "./client"; 
+import Header from "./Components/Header"; 
 import TotalValueWithProvider from "./DisplayerData/totalValueWithProvider";
-import MainPage from "./Components/MainPage"; // Import the MainPage component
-import UserPage from "./Components/UserPage"; // Import the new UserPage component
+import MainPage from "./Components/MainPage"; 
+import UserPage from "./Components/UserPage"; 
 import { ThemeProvider } from "@mui/material/styles";
 import getTheme from "./theme";
 import { ApolloProvider } from "@apollo/client";

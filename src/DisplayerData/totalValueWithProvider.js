@@ -29,14 +29,14 @@ const GET_TRANSFERS_FROM = gql`
 `;
 
 const TotalValue = () => {
-  const { userAddress } = useParams(); // Get userAddress from URL
+  const { userAddress } = useParams(); 
 
   const {
     loading: loadingTo,
     error: errorTo,
     data: dataTo,
   } = useQuery(GET_TRANSFERS_TO, {
-    variables: { address: userAddress || "" }, // Use the userAddress if provided, otherwise an empty string
+    variables: { address: userAddress || "" }, 
   });
 
   const {
@@ -59,9 +59,8 @@ const TotalValue = () => {
         (acc, transfer) => acc + Number(transfer.value) / 1e18,
         0,
       );
-      // Calculate total value
       const total = totalTo - totalFrom;
-      setTotalValue(total >= 0 ? total.toFixed(2) : 0.0); // Set totalValue to 0.00 if total is negative
+      setTotalValue(total >= 0 ? total.toFixed(2) : 0.0); 
     }
   }, [dataTo, dataFrom]);
 
@@ -78,7 +77,7 @@ const TotalValue = () => {
   {totalValue} WLD
     </Typography>
     </Box>
-  ); // Will now display 0.00 instead of -0.00
+  ); 
 };
 
 const TotalValueWithProvider = ({ client }) => (

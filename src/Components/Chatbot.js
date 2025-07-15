@@ -1,23 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useApolloClient } from "@apollo/client"; // Import useApolloClient hook
-import { sendMessageToGPT } from "../ChatService"; // Import the ChatService function
+import { useApolloClient } from "@apollo/client"; 
+import { sendMessageToGPT } from "../ChatService"; 
 import { Box, Button, InputBase, Typography, Paper } from "@mui/material";
 import ChatIcon from "../assets/chat-icon.png";
 import SmartToyRoundedIcon from "@mui/icons-material/SmartToyRounded";
 import Person4RoundedIcon from "@mui/icons-material/Person4Rounded";
 
 const Chatbot = () => {
-  const client = useApolloClient(); // Retrieve the Apollo client instance
+  const client = useApolloClient(); 
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // State to handle loading
-  const inputRef = useRef(null); // Create a ref for the input field
+  const [isLoading, setIsLoading] = useState(false);
+  const inputRef = useRef(null); 
 
   const handleSendMessage = async () => {
     if (input.trim() !== "") {
       const userMessage = { sender: "User", text: input };
       setMessages((prevMessages) => [...prevMessages, userMessage]);
-      setInput(""); // Clear the input field
+      setInput(""); 
       setIsLoading(true); // Show loading state while waiting for API
 
       // Send the user message to the ChatGPT API and pass the Apollo client
@@ -27,7 +27,7 @@ const Chatbot = () => {
 
       // Update the messages state with the bot's reply
       setMessages((prevMessages) => [...prevMessages, botMessage]);
-      setIsLoading(false); // Remove loading state
+      setIsLoading(false); 
     }
   };
 
@@ -38,7 +38,7 @@ const Chatbot = () => {
   };
 
   useEffect(() => {
-    inputRef.current.focus(); // Focus the input field whenever messages change
+    inputRef.current.focus(); 
   }, [messages]);
 
   const messagesEndRef = useRef(null);
@@ -52,9 +52,9 @@ const Chatbot = () => {
   const onSendMessage = () => {
     const newMessage = input;
     if (newMessage) {
-      setMessages((prevMessages) => [...prevMessages, newMessage]); // Update messages state
-      setInput(""); // Clear input field
-      handleSendMessage(newMessage); // Assume this prop function handles sending message to the server
+      setMessages((prevMessages) => [...prevMessages, newMessage]); 
+      setInput(""); 
+      handleSendMessage(newMessage); 
     }
   };
 
@@ -63,7 +63,7 @@ const Chatbot = () => {
     if (messages.length > 0) {
       scrollToBottom();
     }
-  }, [messages]); // Depend on messages to control scrolling
+  }, [messages]); 
 
   return (
     <Paper
@@ -240,7 +240,7 @@ const Chatbot = () => {
           placeholder="Type a message"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyPress} // Add the onKeyDown event handler
+          onKeyDown={handleKeyPress} 
           style={{ flex: "1" }}
           disabled={isLoading}
           ref={inputRef}

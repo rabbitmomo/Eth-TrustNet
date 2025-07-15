@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useQuery, gql } from "@apollo/client";
 
-// Access the API key from the environment variables
 const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 
 // GraphQL query to get the latest 5 transactions from an address
@@ -78,8 +77,8 @@ const GET_SMALLEST_5_TRANSFERS = gql`
 
 // Function to extract the user address from the URL
 const getUserAddressFromURL = () => {
-  const path = window.location.pathname; // Get the URL path
-  const address = path.substring(1); // Remove the leading "/"
+  const path = window.location.pathname; 
+  const address = path.substring(1);
 
   // Validate that the address is in the correct Ethereum address format
   const isValidAddress = /^0x[a-fA-F0-9]{40}$/.test(address);
@@ -107,7 +106,7 @@ const getLatestTransactions = async (client, address) => {
     from: transfer.from,
     to: transfer.to,
     value: (Number(transfer.value) / 1e18).toFixed(2), // Convert from Wei to ETH
-    blockTimestamp: new Date(transfer.blockTimestamp * 1000).toLocaleString(), // Format timestamp
+    blockTimestamp: new Date(transfer.blockTimestamp * 1000).toLocaleString(), 
   }));
 };
 
@@ -127,7 +126,7 @@ const getOldestTransactions = async (client, address) => {
     from: transfer.from,
     to: transfer.to,
     value: (Number(transfer.value) / 1e18).toFixed(2), // Convert from Wei to ETH
-    blockTimestamp: new Date(transfer.blockTimestamp * 1000).toLocaleString(), // Format timestamp
+    blockTimestamp: new Date(transfer.blockTimestamp * 1000).toLocaleString(), 
   }));
 };
 
@@ -147,7 +146,7 @@ const getBiggestTransactions = async (client, address) => {
     from: transfer.from,
     to: transfer.to,
     value: (Number(transfer.value) / 1e18).toFixed(2), // Convert from Wei to ETH
-    blockTimestamp: new Date(transfer.blockTimestamp * 1000).toLocaleString(), // Format timestamp
+    blockTimestamp: new Date(transfer.blockTimestamp * 1000).toLocaleString(), 
   }));
 };
 
@@ -167,7 +166,7 @@ const getSmallestTransactions = async (client, address) => {
     from: transfer.from,
     to: transfer.to,
     value: (Number(transfer.value) / 1e18).toFixed(2), // Convert from Wei to ETH
-    blockTimestamp: new Date(transfer.blockTimestamp * 1000).toLocaleString(), // Format timestamp
+    blockTimestamp: new Date(transfer.blockTimestamp * 1000).toLocaleString(), 
   }));
 };
 
@@ -262,17 +261,17 @@ export const sendMessageToGPT = async (message, client) => {
       },
       {
         role: "user",
-        content: correctedMessage, // Send the corrected message to GPT
+        content: correctedMessage, 
       },
     ],
-    max_tokens: 100, // Adjust token limit as necessary
+    max_tokens: 100, 
     temperature: 0.7,
   };
 
   try {
     const response = await axios.post(url, data, { headers });
     const gptResponse = response.data.choices[0].message.content.trim();
-    return gptResponse; // Return GPT response
+    return gptResponse; 
   } catch (error) {
     console.error("Error sending message to GPT:", error);
     return "Error processing your request. Please try again.";

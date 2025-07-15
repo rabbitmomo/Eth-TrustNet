@@ -1,5 +1,5 @@
 import React from "react";
-import ConnectWallet from "./ConnectWallet"; // Keep the ConnectWallet component here
+import ConnectWallet from "./ConnectWallet"; 
 
 import { worldCoinClient } from "../client";
 import { Box } from "@mui/material";

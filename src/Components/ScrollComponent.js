@@ -1,20 +1,18 @@
-// src/ScrollComponent.js
 
 import React, { useState } from 'react';
 import { ScrollProvider as Provider, useScroll } from '@scroll.io/sdk';
 
-// Component for sending transactions
 const ScrollComponent = () => {
   const scroll = useScroll();
-  const [amount, setAmount] = useState(''); // State for the amount to send
-  const [recipient, setRecipient] = useState(''); // State for the recipient address
+  const [amount, setAmount] = useState(''); 
+  const [recipient, setRecipient] = useState(''); 
 
   const handleAmountChange = (event) => {
-    setAmount(event.target.value); // Update amount state
+    setAmount(event.target.value); 
   };
 
   const handleRecipientChange = (event) => {
-    setRecipient(event.target.value); // Update recipient state
+    setRecipient(event.target.value); 
   };
 
   const sendTransaction = async () => {
@@ -40,14 +38,14 @@ const ScrollComponent = () => {
         type="text"
         placeholder="Recipient Address"
         value={recipient}
-        onChange={handleRecipientChange} // Handle recipient input change
+        onChange={handleRecipientChange} 
         style={{ marginRight: '10px', marginBottom: '10px' }}
       />
       <input
         type="text"
         placeholder="Amount (in ETH)"
         value={amount}
-        onChange={handleAmountChange} // Handle amount input change
+        onChange={handleAmountChange}
         style={{ marginRight: '10px', marginBottom: '10px' }}
       />
       <button onClick={sendTransaction}>Send Transaction</button>

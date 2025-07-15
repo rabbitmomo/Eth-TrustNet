@@ -1,23 +1,23 @@
 // src/UserPage.js
 
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // Import necessary hooks
-import WorldCoinClientDisplayer from "../ClientDisplayer/WorldCoinClientDisplayer"; // Import the displayer
-import Chatbot from "./Chatbot"; // Import Chatbot
-import { worldCoinClient } from "../client"; // Import the clients
-import AddressInput from "./AddressInput"; // Import the new AddressInput component
-import UserDetails from "./UserDetails"; // Import the new UserDetails component
+import { useParams, useNavigate } from "react-router-dom";
+import WorldCoinClientDisplayer from "../ClientDisplayer/WorldCoinClientDisplayer";
+import Chatbot from "./Chatbot";
+import { worldCoinClient } from "../client";
+import AddressInput from "./AddressInput";
+import UserDetails from "./UserDetails";
 import { Box, Grid } from "@mui/material";
 import AssetManagementButtons from "./AssetManagement";
 
 const UserPage = () => {
-  const { userAddress } = useParams(); // Get userAddress from URL
-  const [addressInput, setAddressInput] = useState(userAddress || ""); // Initialize with userAddress
-  const navigate = useNavigate(); // Get navigate function for navigation
+  const { userAddress } = useParams();
+  const [addressInput, setAddressInput] = useState(userAddress || "");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userAddress) {
-      setAddressInput(userAddress); // Set the input to the userAddress from the URL
+      setAddressInput(userAddress);
     }
   }, [userAddress]);
 
@@ -28,7 +28,7 @@ const UserPage = () => {
     } else {
       navigate("/"); // Navigate back to the main page if the address is empty
     }
-    setAddressInput(address); // Update the input field
+    setAddressInput(address);
   };
 
   return (
@@ -58,14 +58,11 @@ const UserPage = () => {
           />
         </Grid>
         <Grid item xs={12} lg={4}>
-     
-
-    <Box>
-          <UserDetails userAddress={addressInput} client={worldCoinClient} />
-
-          <AssetManagementButtons/>  </Box>
+          <Box>
+            <UserDetails userAddress={addressInput} client={worldCoinClient} />
+            {/* <AssetManagementButtons />{" "} */}
+          </Box>
           <Chatbot />
-
         </Grid>
       </Grid>
     </Box>

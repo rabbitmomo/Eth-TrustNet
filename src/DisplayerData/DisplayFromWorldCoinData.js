@@ -17,9 +17,9 @@ import {
 import FileDownloadRoundedIcon from "@mui/icons-material/FileDownloadRounded";
 import SkipNextRoundedIcon from "@mui/icons-material/SkipNextRounded";
 import SkipPreviousRoundedIcon from "@mui/icons-material/SkipPreviousRounded";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy"; // Import copy icon if needed
+import ContentCopyIcon from "@mui/icons-material/ContentCopy"; 
 
-// Define your GraphQL query
+// Define GraphQL query
 const GET_TRANSFERS = gql`
   query GetTransfers($address: String) {
     transfers(
@@ -37,7 +37,7 @@ const GET_TRANSFERS = gql`
 `;
 
 const formatTimestamp = (timestamp) => {
-  const date = new Date(timestamp * 1000); // Assuming the timestamp is in seconds
+  const date = new Date(timestamp * 1000); 
   const timeOptions = { hour: "numeric", minute: "numeric", hour12: true };
   const dateOptions = { month: "numeric", day: "numeric", year: "numeric" };
   const timeString = date.toLocaleString("en-US", timeOptions);
@@ -57,8 +57,8 @@ const formatText = (text) => {
 const formatValue = (value) => {
   const etherValue = Number(value) / 1e18; // Convert Wei to Ether
   return etherValue > 0
-    ? etherValue.toFixed(2) // Format to 2 decimal places
-    : value.toFixed(2); // Return the original value formatted
+    ? etherValue.toFixed(2) 
+    :Number(value).toFixed(2); 
 };
 
 const copyToClipboard = (text) => {
@@ -74,7 +74,7 @@ const downloadJSON = (data, filename) => {
   a.href = url;
   a.download = filename;
   a.click();
-  URL.revokeObjectURL(url); // Clean up the URL object
+  URL.revokeObjectURL(url); 
 };
 
 const DisplayTransferData = ({
@@ -104,13 +104,9 @@ const DisplayTransferData = ({
 
   const currentTransfers = getCurrentTransfers(currentPage);
 
-  // Debugging information
-  console.log("Current Page:", currentPage);
-  console.log("Current Transfers:", currentTransfers);
-
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    getCurrentTransfers(newPage); // Update current transfers when page changes
+    getCurrentTransfers(newPage); 
   };
 
   return (
@@ -131,7 +127,6 @@ const DisplayTransferData = ({
         <Typography variant="h5" fontWeight="bold">
           Total: {totalValue} WLD
         </Typography>
-        {/* Display total value to the right */}
       </Box>
       <TableContainer>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -184,7 +179,6 @@ const DisplayTransferData = ({
         </Table>
       </TableContainer>
 
-      {/* Pagination Controls */}
       <Box
         sx={{
           mt: 1,
@@ -245,7 +239,7 @@ const DisplayTransferData = ({
 const DisplayFromWorldCoinData = () => {
   const { userAddress } = useParams(); // Get userAddress from URL
   const { loading, error, data } = useQuery(GET_TRANSFERS, {
-    variables: { address: userAddress || "" }, // Use the userAddress if provided, otherwise an empty string
+    variables: { address: userAddress || "" }, 
   });
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -256,8 +250,8 @@ const DisplayFromWorldCoinData = () => {
       const total = data.transfers.reduce(
         (acc, transfer) => acc + Number(transfer.value) / 1e18,
         0,
-      ); // Calculate total in ETH
-      setTotalValue(total.toFixed(2)); // Update total value in state
+      ); 
+      setTotalValue(total.toFixed(2)); 
     }
   }, [data]);
 
@@ -272,7 +266,7 @@ const DisplayFromWorldCoinData = () => {
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       maxTransfers={transfers.length}
-      totalValue={totalValue} // Pass total value to DisplayTransferData component
+      totalValue={totalValue} 
       userAddress={userAddress}
     />
   );

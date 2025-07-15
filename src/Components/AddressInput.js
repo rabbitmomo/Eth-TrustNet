@@ -1,4 +1,4 @@
-// src/AddressInput.js
+
 
 import React from "react";
 import FindInPageRoundedIcon from "@mui/icons-material/FindInPageRounded";
@@ -11,12 +11,6 @@ const AddressInput = ({
   handleAddressChange,
   
 }) => {
-
-  // const clearInput = () => {
-  //   handleAddressChange(addressInput);
-  //   setAddressInput("", () => {
-  //   });
-  // };
 
 
   return (
@@ -48,21 +42,6 @@ const AddressInput = ({
             paddingLeft: "20px",height:"48px",
           }}
         />
-        {/* now need click 2 times only work */}
- {/* <Button
-        //  onClick={clearInput} 
-        onClick={() => handleAddressChange(setAddressInput(""))}
-        sx={{
-            borderRadius: 0,
-            minWidth: "50px",
-           height:"48px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <DeleteOutlineRoundedIcon />
-        </Button> */}
         <Button
           onClick={() => handleAddressChange(addressInput)}
           sx={{
@@ -78,9 +57,6 @@ const AddressInput = ({
         </Button>
 
       </Box>
-       {/* <IconButton>
-<AnnouncementRoundedIcon sx={{color:"primary.main"}}/>
-      </IconButton> */}
     </Box>
   );
 };

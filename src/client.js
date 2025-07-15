@@ -1,4 +1,3 @@
-// src/client.js
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 /**
@@ -9,21 +8,20 @@ import { ApolloClient, InMemoryCache } from "@apollo/client";
  */
 const createClient = (uri) => {
   return new ApolloClient({
-    uri: uri, // Use the provided subgraph URL
+    uri: uri, 
     cache: new InMemoryCache(),
     headers: {
-      Authorization: `Bearer c36d6492666df88ccbe914c1634c723d`, // Replace with your actual API key
+      Authorization: `Bearer c36d6492666df88ccbe914c1634c723d`, 
     },
   });
 };
 
 // // Export specific clients for each subgraph
-// const daiClient = createClient('https://api.studio.thegraph.com/query/89619/reputationx-defi-dai/version/latest'); // Dai subgraph URL
 
 //Dexs
 const uniswapClient = createClient(
   "https://api.studio.thegraph.com/query/89619/dexs-uniswap-subgraph/version/latest",
-); // Replace with your Uniswap subgraph URL
+); 
 
 //NFTS martketplace
 const zoraClient = createClient(

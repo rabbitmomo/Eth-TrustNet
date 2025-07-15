@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserProvider } from "ethers"; // Correct import from ethers v6
+import { BrowserProvider } from "ethers"; 
 import { Box, Button, Typography } from "@mui/material";
 import WalletLinkIcon from "./WalletLinkIcon";
 
@@ -13,7 +13,7 @@ const ConnectWallet = ({ onAddressChange }) => {
         await window.ethereum.request({ method: "eth_requestAccounts" });
 
         // Create an ethers provider
-        const provider = new BrowserProvider(window.ethereum); // Use BrowserProvider for newer ethers.js versions
+        const provider = new BrowserProvider(window.ethereum); 
         const signer = await provider.getSigner();
 
         // Get the user's Ethereum address
